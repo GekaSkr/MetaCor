@@ -2,13 +2,10 @@
 import os
 from PIL import Image
 
-print("EEEEE")
 folder_path = ("v:\\PYTHON PROJECTS\DEL\\filters for OLX_F\\2023-07-05 спа\\")
-
 
 # Указываем путь к новой папке
 new_folder_path = folder_path + "Generative Meta\\"
-
 
 # Проверяем, существует ли папка, и если нет, то создаем её
 if not os.path.exists(new_folder_path):
