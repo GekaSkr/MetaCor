@@ -2,7 +2,7 @@
 import os
 from PIL import Image
 
-
+print("EEEEE")
 folder_path = ("v:\\PYTHON PROJECTS\DEL\\filters for OLX_F\\2023-07-05 спа\\")
 
 
