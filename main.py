@@ -45,12 +45,22 @@ for file in file_list:
         title = EXIF.get(40091)
         if title:
             title_decoded = title.decode('utf-16')
+            title_decoded = title_decoded.title()
+            title_decoded = title_decoded.replace("\x00","")
+            title_encoded = title_decoded.encode('UTF-16le') #использовать кодировку 16le
+
+            EXIF[40091] = title_encoded
+            print("EXIF", EXIF[40091])
 
         # открываем, делаем изменения, переназначаем новый параметр в словаре exif
         description = EXIF.get(270)
+        description = description.title() #все слова начинаются с заглавных букв
+        print('DES', description)
+
+
         description_generative = description + ", generative ai"
         description_generative = description_generative.replace("\x00", "") #нужно обязательно очистить от непечатаемых символов, она не сработает
-        description_generative_encoded = description_generative.encode('UTF-16le')
+        description_generative_encoded = description_generative.encode('UTF-16le') #использовать кодировку 16le
 
 
         # Если в исходном у нас строка, то выполняем, иначе ошибка
