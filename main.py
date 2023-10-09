@@ -2,10 +2,11 @@
 import os
 from PIL import Image
 
-folder_path = ("v:\\PYTHON PROJECTS\DEL\\filters for OLX_F\\2023-07-05 спа\\")
+folder_path = input("Input Folder Path: ")
 
 # Указываем путь к новой папке
-new_folder_path = folder_path + "Generative Meta\\"
+input_new_folder = input("Input New Folder Name for copies with new metadata (or skip and press Enter and files will be rewrited): ")
+new_folder_path = folder_path + input_new_folder+"\\"
 
 # Проверяем, существует ли папка, и если нет, то создаем её
 if not os.path.exists(new_folder_path):
@@ -16,6 +17,7 @@ else:
 
 # Получите список файлов в папке
 file_list = os.listdir(folder_path)
+print(file_list)
 
 #Функция проверки, является ли файл изображением или папкой
 def is_image(file_path):
@@ -37,9 +39,13 @@ for file in file_list:
     if is_image(full_path):
         image = Image.open(full_path)
         EXIF = image.getexif()
+        INFO = image.info
+        dpi = INFO.get("title")
+        print(dpi)
 
         # открываем, декодируем, делаем изменения, кодируем, переназначаем новый параметр в словаре exif
         title = EXIF.get(40091)
+        print("EXIF", EXIF)
         if title:
             title_decoded = title.decode('utf-16')
             title_decoded = title_decoded.title()
@@ -55,7 +61,7 @@ for file in file_list:
         print('DES', description)
 
 
-        description_generative = description + ", generative ai"
+        description_generative = description + ", Slow Motion"
         description_generative = description_generative.replace("\x00", "") #нужно обязательно очистить от непечатаемых символов, она не сработает
         description_generative_encoded = description_generative.encode('UTF-16le') #использовать кодировку 16le
 
@@ -73,7 +79,7 @@ for file in file_list:
         if keywords:
             keywords_decoded = keywords.decode('utf-16')
             keywords_decoded = keywords_decoded.replace("\x00", "") #нужно обязательно очистить от непечатаемых символов, она не сработает
-            add_ai_words = ", ai, generative, generative ai"
+            add_ai_words = ""
             keyword_AI = keywords_decoded + add_ai_words
 
             print("keyword_AI", keyword_AI)
@@ -96,7 +102,9 @@ for file in file_list:
 
 
         # Сохраняем изображение с параметрами
-        new_file_path = new_folder_path +"A2_"+ file
+        new_file_path = (new_folder_path +
+
+                         file)
         image.save(new_file_path, **save_options)
 
         # Закрываем изображение (необязательно, но рекомендуется)
