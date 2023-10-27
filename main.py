@@ -2,6 +2,7 @@
 import os
 from PIL import Image
 
+print("testt")
 folder_path = input("Input Folder Path: ")
 
 # Указываем путь к новой папке
