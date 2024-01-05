@@ -2,12 +2,11 @@
 import os
 from PIL import Image
 
-print("testt")
-folder_path = input("Input Folder Path: ")
+folder_path = input("Input Folder Path: ") + "\\"
 
 # Указываем путь к новой папке
 input_new_folder = input("Input New Folder Name for copies with new metadata (or skip and press Enter and files will be rewrited): ")
-new_folder_path = folder_path + input_new_folder+"\\"
+new_folder_path = folder_path +input_new_folder+"\\"
 
 # Проверяем, существует ли папка, и если нет, то создаем её
 if not os.path.exists(new_folder_path):
@@ -62,7 +61,9 @@ for file in file_list:
         print('DES', description)
 
 
-        description_generative = description + ", Slow Motion"
+        #description_generative = "Poznan, Poland - 07 July 2023: " + description + ""
+        description_generative = description + ", generative ai"
+        print('Decs', description_generative)
         description_generative = description_generative.replace("\x00", "") #нужно обязательно очистить от непечатаемых символов, она не сработает
         description_generative_encoded = description_generative.encode('UTF-16le') #использовать кодировку 16le
 
@@ -80,7 +81,8 @@ for file in file_list:
         if keywords:
             keywords_decoded = keywords.decode('utf-16')
             keywords_decoded = keywords_decoded.replace("\x00", "") #нужно обязательно очистить от непечатаемых символов, она не сработает
-            add_ai_words = ""
+            add_ai_words = ''
+            add_ai_words = ", ai, generative ai, generative"
             keyword_AI = keywords_decoded + add_ai_words
 
             print("keyword_AI", keyword_AI)
